@@ -27,14 +27,15 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
 model.add(Dense(512, activation='relu', kernel_constraint=maxnorm(3)))
 model.add(Dropout(0.5))
+model.add(Dense(256, activation='relu', kernel_constraint=maxnorm(3)))
 model.add(Dense(num_classes, activation='softmax'))
 sgd = gradient_descent_v2.SGD(lr=0.01, momentum=0.9, decay=(0.01 / 25), nesterov=False)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 model.summary()
-model.fit(train_X, train_Y, validation_data=(test_X, test_Y), epochs=10, batch_size=32)
+model.fit(train_X, train_Y, validation_data=(test_X, test_Y), epochs=25, batch_size=32)
 accuracy = model.evaluate(test_X, test_Y)
 print("Accuracy: " + str(round(accuracy[1] * 100, 2)) + " %")
-model.save("model1_cifar_10epoch.h5")
+model.save("model2.h5")
 
 
 
