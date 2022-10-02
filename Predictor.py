@@ -37,7 +37,7 @@ def output_class_recognizer(input_list):
         return 0
 
 
-model = load_model('model3.h5')
+model = load_model('main model.h5')
 results = {
     0: 'airplane',
     1: 'automobile',
@@ -50,22 +50,19 @@ results = {
     8: 'ship',
     9: 'truck'
 }
-input_image_name = input("Enter the full name of the input image(like image1.jpg): ")
-main_input_image = Image.open(input_image_name)
-input_image = main_input_image.resize((32, 32))
-print(input_image)
-resized_input_image = input_image
-input_image = np.expand_dims(input_image, axis=0)
-input_image = np.array(input_image)
-# print(input_image)
+while True:
+    input_image_name = input("Enter the full name of the input image(like image1.jpg): ")
+    if input_image_name == "exit":
+        break
+    main_input_image = Image.open(input_image_name)
+    input_image = main_input_image.resize((32, 32))
+    resized_input_image = input_image
+    input_image = np.expand_dims(input_image, axis=0)
+    input_image = np.array(input_image)
+    output_class_recognizer(model.predict([input_image])[0])
+    main_input_image.show()
+    resized_input_image.show()
 
-
-
-
-
-output_class_recognizer(model.predict([input_image])[0])
-main_input_image.show()
-resized_input_image.show()
 
 
 
